@@ -1,0 +1,19 @@
+{
+  "name": "expenslyfy.me",
+  "version": "1.0.0",
+  "description": "Expense tracking app",
+  "main": "index.js",
+  "scripts": {
+    "test": "tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmaierlit/expenslyfy.me.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rmaierlit/expenslyfy.me/issues"
+  },
+  "homepage": "https://github.com/rmaierlit/expenslyfy.me#readme"
+}
