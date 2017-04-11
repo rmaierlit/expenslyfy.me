@@ -1,7 +1,5 @@
 var helpers = {};
 
-//var knex = require('knex');
-
 var Maria = require('mariasql');
 
 var m = Maria({
