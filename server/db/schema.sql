@@ -4,14 +4,15 @@ CREATE OR REPLACE DATABASE app;
 
 USE app;
 
-CREATE OR REPLACE TABLE users(
+CREATE TABLE users(
     user_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name varchar(20) DEFAULT NULL,
+    key name varchar(20) DEFAULT NULL,
     is_admin bool DEFAULT FALSE
 );
 
 INSERT INTO users (name) VALUES ('Ulysses');
-INSERT INTO users (name, is_admin) VALUES ('JUNO', TRUE);
+INSERT INTO users (name) VALUES ('Wint');
+INSERT INTO users (name, is_admin) VALUES ('Juno', TRUE);
 
 CREATE TABLE expenses (
 	expense_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -25,4 +26,6 @@ CREATE TABLE expenses (
 		ON UPDATE RESTRICT
 );
 
-INSERT INTO expenses (amount, description, owner_id) VALUES ('3600.02', 'Candles', 1);
+INSERT INTO expenses (amount, description, owner_id) VALUES ('200', 'Food', 2);
+INSERT INTO expenses (amount, description, owner_id) VALUES ('3600', 'Candles', 2);
+INSERT INTO expenses (amount, description, owner_id) VALUES ('45.02', 'Composite Bow', 1);

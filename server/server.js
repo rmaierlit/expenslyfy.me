@@ -8,3 +8,5 @@ require('./routes.js')(server, express);
 server.listen(6565);
 
 console.log('server listening on 6565');
+
+module.exports = server;

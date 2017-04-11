@@ -9,3 +9,7 @@ describe ('GET /', function() {
             .expect(200, done);
     });
 });
+
+// describe ('GET /users/:user', function () {
+
+// });
