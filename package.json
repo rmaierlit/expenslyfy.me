@@ -18,14 +18,23 @@
   },
   "homepage": "https://github.com/rmaierlit/expenslyfy.me#readme",
   "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "webpack": "^2.3.3"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "knex": "^0.12.9",
-    "mariasql": "^0.2.6"
+    "mariasql": "^0.2.6",
+    "passport": "^0.3.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1"
   }
 }
