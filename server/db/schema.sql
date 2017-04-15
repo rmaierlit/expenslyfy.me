@@ -6,13 +6,16 @@ USE app;
 
 CREATE TABLE users(
     user_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    key name varchar(20) DEFAULT NULL,
+    name VARCHAR(20) NOT NULL,
+	password VARCHAR(20) NOT NULL,
     is_admin bool DEFAULT FALSE
 );
 
-INSERT INTO users (name) VALUES ('Ulysses');
-INSERT INTO users (name) VALUES ('Wint');
-INSERT INTO users (name, is_admin) VALUES ('Juno', TRUE);
+CREATE UNIQUE INDEX name ON users(name);
+
+INSERT INTO users (name, password) VALUES ('Ulysses', 'metis');
+INSERT INTO users (name, password) VALUES ('Wint', '@dril');
+INSERT INTO users (name, password, is_admin) VALUES ('Juno', 'gr8h8r', TRUE);
 
 CREATE TABLE expenses (
 	expense_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

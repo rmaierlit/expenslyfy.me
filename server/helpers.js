@@ -1,5 +1,5 @@
-var helpers = {};
-
+var passport = require('passport');
+var Strategy = require('passport-http').BasicStrategy;
 var Maria = require('mariasql');
 
 var m = Maria({
@@ -8,9 +8,58 @@ var m = Maria({
         db: 'app'
 });
 
+passport.use(new Strategy(
+    function(username, password, cb) {
+        m.query('SELECT * FROM users where name = :username'), {username}, function(err, rows){
+            if (err){
+                return cb(err);
+            }
+            
+            //if there is no matching user in the database, return false
+            if (rows.length = 0){
+                return cb(null, false);
+            }
+            
+            let user = rows[0];
+
+            //if the password does not match, return false (TODO: implement hashing crypto)
+            if (password !== user.password){
+                return cb(null, false);
+            }
+
+            return cb(null, user);
+        }
+    }
+));
+
+var helpers = {};
+
+helpers.isAuthenticated = passport.authenticate('basic', {session : false});
+
+helpers.adminOnly = function(req, res, next){
+    if (!req.user.is_admin) {
+        res.send("Invalid: no Admin priviledges");
+    }
+    next();
+}
+
+helpers.userOnly = function(req, res, next){
+    if (req.user !== req.params.user) {
+        res.send("Invalid: not associated user");
+    }
+    next();
+}
+
+helpers.adminOrUser = function(req, res, next){
+    if (!req.user.is_admin && req.user !== req.params.user) {
+        res.send("Invalid: not associated user and no Admin priviledges");
+    }
+    next();
+}
+
 helpers.getExpenses= function(req, res) {
     let userName = req.params.user;
-    m.query('SELECT * FROM expenses LEFT JOIN users ON expenses.owner_id = users.user_id where name = :userName;', {userName}, function(err, rows){
+    m.query('SELECT date_time, amount, description, owner_id FROM expenses LEFT JOIN users ON expenses.owner_id = users.user_id where name = :userName;', {userName}, function(err, rows){
         if (err){
             res.send(err.message);
         }
