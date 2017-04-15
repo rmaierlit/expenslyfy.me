@@ -38,3 +38,6 @@ jspm_packages
 
 # Linter
 .eslintrc.json
+
+# webpack bundle
+bundle.js
