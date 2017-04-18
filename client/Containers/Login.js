@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'Axios';
 
 class Login extends Component {
   constructor(props) {
@@ -16,11 +15,7 @@ class Login extends Component {
   }
 
   submitLogin() {
-    axios.post('/login', {
-      username: this.state.usersname,
-      password: this.state.password,
-    }).then( (res) => console.log(res))
-      .catch( (err) => console.log(err));
+    this.props.setCredentials(this.state.username, this.state.password);
   }
 
   render() {
@@ -31,7 +26,7 @@ class Login extends Component {
               username<input type="text" data-name="username" value={this.state.username}/>
               password<input type="text" data-name="password" value={this.state.password}/>
             </div>
-            <button onClick={this.submitLogin}>Submit</button>
+            <button onClick={this.submitLogin.bind(this)}>Save</button>
         </div>
     );
   }
