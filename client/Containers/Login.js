@@ -24,7 +24,7 @@ class Login extends Component {
           console.log('token recieved: ', cred.token);
           this.props.setCredentials(cred);
         } else {
-          console.log('no token', res.statusText);
+          alert('Login information incorrect!');
         }
       });
   }
