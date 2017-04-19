@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {username: '', password: ''};
+    this.state = {user: '', password: ''};
   }
 
   handleChange(event) {
@@ -15,18 +16,33 @@ class Login extends Component {
   }
 
   submitLogin() {
-    this.props.setCredentials(this.state.username, this.state.password);
+    let {user, password} = this.state;
+    axios.post('/login', {user, password})
+      .then( (res) => {
+        let cred = res.data;
+        if (cred.token) {
+          console.log('token recieved: ', cred.token);
+          this.props.setCredentials(cred);
+        } else {
+          console.log('no token', res.statusText);
+        }
+      });
   }
 
   render() {
+    if (this.props.loggedInAs !== null){
+      return (
+        <h2>{"Logged In As " + this.props.loggedInAs}</h2>
+      )
+    }
     return (
         <div>
             <h2>Login:</h2>
             <div onChange={this.handleChange.bind(this)}>
-              username<input type="text" data-name="username" value={this.state.username}/>
+              user name<input type="text" data-name="user" value={this.state.user}/>
               password<input type="text" data-name="password" value={this.state.password}/>
             </div>
-            <button onClick={this.submitLogin.bind(this)}>Save</button>
+            <button onClick={this.submitLogin.bind(this)}>Sign In</button>
         </div>
     );
   }

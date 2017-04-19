@@ -3,7 +3,7 @@ var helpers = require('./helpers.js');
 
 module.exports = function (server) {
     //*Authorization
-    server.post('/login', helpers.login);
+    server.post('/login', jsonParser, helpers.login);
 
     //*Accessors*
 

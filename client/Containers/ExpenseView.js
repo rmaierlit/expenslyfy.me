@@ -7,17 +7,14 @@ class ExpenseView extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    axios.request({url: '/users/Wint/Expenses', auth: {username: 'Wint', password: 'dril'}})
-      .then((res) => console.log(res));
-  }
-
   render() {
-    const testList = [{owner_id: 0}, {owner_id: 1}];
+    if(!Array.isArray(this.props.expenseArray)){
+      return null;
+    }
     return (
         <div>
-            <h3>expenses</h3>
-            <Expenses expenseArray={testList}/>
+            <h3>Expenses</h3>
+            <Expenses expenseArray={this.props.expenseArray}/>
         </div>
     );
   }
