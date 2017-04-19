@@ -14,8 +14,8 @@ class Main extends Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    if (this.state.user !== prevState.user){
-      axios.get('/users/Wint/Expenses', {headers: {auth: this.state.token}})
+    if (this.state.user !== null && this.state.user !== prevState.user){
+      axios.get(`/users/${this.state.user}/Expenses`, {headers: {auth: this.state.token}})
         .then(res => {
           console.log(res.data);
           this.setState({expenses: res.data});
