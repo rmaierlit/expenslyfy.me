@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import Expenses from './Expenses.js'
+import Expenses from './Expenses.js';
+import AddExpense from './AddExpense.js';
 
 class ExpenseView extends Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class ExpenseView extends Component {
         <div>
             <h3>Expenses</h3>
             <Expenses expenseArray={this.props.expenseArray}/>
+            <AddExpense name={this.props.name} userId={this.props.userId} token={this.props.token}/>
         </div>
     );
   }

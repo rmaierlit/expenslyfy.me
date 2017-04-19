@@ -30,9 +30,9 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.loggedInAs !== null){
+    if (this.props.name !== null){
       return (
-        <h2>{"Logged In As " + this.props.loggedInAs}</h2>
+        <h2>{"Logged In As " + this.props.name}</h2>
       )
     }
     return (

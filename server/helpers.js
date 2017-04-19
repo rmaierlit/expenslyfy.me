@@ -57,10 +57,9 @@ helpers.adminOrUser = function(req, res, next){
 helpers.login = function (req, res){
     let name = req.body.user;
     m.query('SELECT * FROM users WHERE name = :name', {name}, function(err, rows){
-        console.log(rows);
         if (rows[0] && rows[0].password === req.body.password){ //TODO: add bcrypt
             let token = jwt.sign({user: name}, myLittleSecret, {expiresIn: 5 * 60}); //expires in 5 minutes
-            res.send({token, user: name, isAdmin: rows[0].is_admin});
+            res.send({token, name, userId: rows[0].user_id, isAdmin: rows[0].is_admin});
         } else {
             res.send(false);
         }
@@ -89,7 +88,7 @@ helpers.getAnExpense = function(req, res) {
 
 helpers.createExpense = function(req, res) {
     let expense = req.body.expense;
-    m.query('INSERT INTO expenses (date_time, amount, description, owner_id) VALUES (:date_time, :amount, :description, :ownerId)', expense, function(err, info){
+    m.query('INSERT INTO expenses (date_time, amount, description, owner_id) VALUES (:dateTime, :amount, :description, :ownerId)', expense, function(err, info){
         if (err){
             res.send(err.message);
         } else {

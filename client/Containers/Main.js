@@ -6,7 +6,7 @@ import axios from 'axios';
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {user: null, token:null, isAdmin: false, expenses: null};
+    this.state = {name: null, userId: null, token:null, isAdmin: false, expenses: null};
   }
 
   setCredentials(cred){
@@ -14,8 +14,8 @@ class Main extends Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    if (this.state.user !== null && this.state.user !== prevState.user){
-      axios.get(`/users/${this.state.user}/Expenses`, {headers: {auth: this.state.token}})
+    if (this.state.userId !== null && this.state.userId !== prevState.userId){
+      axios.get(`/users/${this.state.name}/Expenses`, {headers: {auth: this.state.token}})
         .then(res => {
           console.log(res.data);
           this.setState({expenses: res.data});
@@ -27,8 +27,8 @@ class Main extends Component {
     return (
         <div>
             <h1>Expenslyfy.me</h1>
-            <Login setCredentials={this.setCredentials.bind(this)} loggedInAs={this.state.user}/>
-            <ExpenseView expenseArray={this.state.expenses}/>
+            <Login setCredentials={this.setCredentials.bind(this)} name={this.state.name}/>
+            <ExpenseView expenseArray={this.state.expenses} token={this.state.token} userId={this.state.userId} name={this.state.name}/>
         </div>
     );
   }
