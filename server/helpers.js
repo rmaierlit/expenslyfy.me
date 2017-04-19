@@ -88,7 +88,7 @@ helpers.getAnExpense = function(req, res) {
 
 helpers.createExpense = function(req, res) {
     let expense = req.body.expense;
-    m.query('INSERT INTO expenses (date_time, amount, description, owner_id) VALUES (:dateTime, :amount, :description, :ownerId)', expense, function(err, info){
+    m.query('INSERT INTO expenses (date_time, amount, description, owner_id) VALUES (now(), :amount, :description, :ownerId)', expense, function(err, info){
         if (err){
             res.send(err.message);
         } else {
