@@ -28,7 +28,6 @@ class Main extends Component {
         <div>
             <h1>Expenslyfy.me</h1>
             <Login setCredentials={this.setCredentials.bind(this)} loggedInAs={this.state.user}/>
-            {this.state.token}
             <ExpenseView expenseArray={this.state.expenses}/>
         </div>
     );
