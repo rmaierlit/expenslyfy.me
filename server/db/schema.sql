@@ -19,7 +19,7 @@ INSERT INTO users (name, password, is_admin) VALUES ('Juno', 'gr8h8r', TRUE);
 
 CREATE TABLE expenses (
 	expense_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    date_time DATE DEFAULT NULL,
+    date_time DATETIME DEFAULT NULL,
     amount DECIMAL(12,2) DEFAULT NULL,
 	description VARCHAR(200) DEFAULT NULL,
 	owner_id SMALLINT UNSIGNED NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE expenses (
 		ON UPDATE RESTRICT
 );
 
-INSERT INTO expenses (amount, date_time, description, owner_id) VALUES ('200', '2017-4-01 00:00:00', 'Food', 2);
+INSERT INTO expenses (amount, date_time, description, owner_id) VALUES ('200', '2017-4-01 12:00:00', 'Food', 2);
 INSERT INTO expenses (amount, date_time, description, owner_id) VALUES ('150', '2017-4-11 00:00:00', 'Data', 2);
 INSERT INTO expenses (amount, date_time, description, owner_id) VALUES ('800', '2017-4-15 00:00:00', 'Rent', 2);
 INSERT INTO expenses (amount, date_time, description, owner_id) VALUES ('3600', '2017-4-18 00:00:00', 'Candles', 2);
