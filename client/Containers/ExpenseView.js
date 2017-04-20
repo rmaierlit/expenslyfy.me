@@ -1,25 +1,20 @@
 import React, {Component} from 'react';
 import Expenses from './Expenses.js';
 import AddExpense from './AddExpense.js';
+import LookupUser from './LookupUser.js';
 
-class ExpenseView extends Component {
-  constructor(props) {
-    super(props);
+function ExpenseView(props) {
+  if(!Array.isArray(props.expenseArray)){
+    return null;
   }
-
-  render() {
-    if(!Array.isArray(this.props.expenseArray)){
-      return null;
-    }
-    return (
-        <div>
-            <h3>Expenses</h3>
-            <Expenses expenseArray={this.props.expenseArray}/>
-            <AddExpense name={this.props.name} token={this.props.token} 
-              updateExpenses={this.props.updateExpenses}/>
-        </div>
-    );
-  }
+  return (
+      <div>
+          <h3>Expenses</h3>
+          <LookupUser userList={props.userList} getExpenses={props.getExpenses}/>
+          <Expenses expenseArray={props.expenseArray}/>
+          <AddExpense name={props.name} token={props.token} updateExpenses={props.getExpenses} lookingAt={props.lookingAt}/>
+      </div>
+  );
 }
 
 export default ExpenseView;

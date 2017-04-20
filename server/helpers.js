@@ -33,15 +33,13 @@ var helpers = {};
 helpers.isAuthenticated = passport.authenticate('jwt', {session: false});
 
 //middleware to establish differnt levels of permission
-
-//currently unused
-// helpers.adminOnly = function(req, res, next){
-//     if (!req.user.is_admin) {
-//         res.send("Invalid: no Admin priviledges");
-//         return;
-//     }
-//     next();
-// };
+helpers.adminOnly = function(req, res, next){
+    if (!req.user.is_admin) {
+        res.send("Invalid: no Admin priviledges");
+        return;
+    }
+    next();
+};
 
 helpers.userOnly = function(req, res, next){
     if (req.user.name !== req.params.user) {
@@ -63,7 +61,6 @@ helpers.validateMutation = function(req, res, next){
     let user = req.params.user;
     let expenseId = req.params.expenseId;
     m.query('SELECT name FROM user WHERE user_id IN (SELECT owner_id FROM expenses WHERE expense_id=:expenseId', {expenseId}, function(err, row) {
-        console.log(count)
         if (row.length === 0) {
             res.send("Invalid: this expense cannot be found");
             return;
@@ -82,15 +79,25 @@ helpers.login = function (req, res){
     let name = req.body.user;
     m.query('SELECT * FROM users WHERE name = :name', {name}, function(err, rows){
         if (rows[0] && rows[0].password === req.body.password){ //TODO: add bcrypt
-            let token = jwt.sign({user: name}, myLittleSecret, {expiresIn: 5 * 60}); //expires in 5 minutes
-            res.send({token, name, userId: rows[0].user_id, isAdmin: rows[0].is_admin});
+            let dbName = rows[0].name; //for correct capitalization
+            let token = jwt.sign({user: dbName}, myLittleSecret, {expiresIn: 20 * 60}); //expires in 20 minutes
+            res.send({token, name: dbName, userId: rows[0].user_id, isAdmin: rows[0].is_admin === '1'});
         } else {
             res.send(false);
         }
     });
 };
 
-helpers.getExpenses= function(req, res) {
+helpers.getUsers = function(req, res) {
+    m.query('SELECT name FROM users', function(err, rows){
+        if (err){
+            res.send(err.message);
+        }
+        res.send(rows);
+    });
+};
+
+helpers.getExpenses = function(req, res) {
     let name = req.params.user;
     m.query('SELECT * FROM expenses WHERE owner_id IN (select user_id from users where name=:name)', {name}, function(err, rows){
         if (err){

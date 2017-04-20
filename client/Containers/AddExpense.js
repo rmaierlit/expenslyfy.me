@@ -26,10 +26,14 @@ class AddExpense extends Component {
       .then( (res) => {
         console.log('add:', res);
         this.props.updateExpenses(this.props.name);
+        this.setState({amount: '', description: ''});
       });
   }
 
   render() {
+    if (this.props.name !== this.props.lookingAt){
+      return null;
+    }
     return (
         <div>
             <h4>Add Expense</h4>

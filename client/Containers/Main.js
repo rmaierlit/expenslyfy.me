@@ -4,7 +4,7 @@ import ExpenseView from './ExpenseView';
 import ReportView from './ReportView';
 import axios from 'axios';
 
-const initialState = {name: null, token:null, isAdmin: false, expenses: null};
+const initialState = {name: null, token:null, isAdmin: false, expenses: null, userList: null, lookingAt: null};
 
 class Main extends Component {
   constructor(props) {
@@ -13,7 +13,17 @@ class Main extends Component {
   }
 
   setCredentials(cred){
+    cred.lookingAt = cred.name;
+    if(cred.isAdmin){
+      axios.get('/users', {headers: {auth: cred.token}})
+        .then(res => {
+          console.log('get userList', res.data);
+          cred.userList = res.data
+          this.setState(cred);
+        });
+    } else{
     this.setState(cred);
+    }
   }
 
   clearCredentials(){
@@ -30,7 +40,7 @@ class Main extends Component {
     axios.get(`/users/${userName}/expenses`, {headers: {auth: this.state.token}})
         .then(res => {
           console.log('get exps:', res.data);
-          this.setState({expenses: res.data});
+          this.setState({expenses: res.data, lookingAt: userName});
         });
   }
 
@@ -44,8 +54,9 @@ class Main extends Component {
 
             <ReportView name={this.state.name} token={this.state.token}/>
 
-            <ExpenseView expenseArray={this.state.expenses} token={this.state.token}
-              name={this.state.name} isAdmin={this.state.isAdmin} updateExpenses={this.getExpenses.bind(this)}/>
+            <ExpenseView expenseArray={this.state.expenses} token={this.state.token} userList={this.state.userList}
+              name={this.state.name} isAdmin={this.state.isAdmin} lookingAt={this.state.lookingAt}
+              getExpenses={this.getExpenses.bind(this)}/>
         </div>
     );
   }

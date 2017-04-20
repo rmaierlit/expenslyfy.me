@@ -21,7 +21,6 @@ class Login extends Component {
       .then( (res) => {
         let cred = res.data;
         if (cred.token) {
-          console.log('token recieved: ', cred.token);
           this.props.setCredentials(cred);
           this.setState({user: '', password: ''});
         } else {

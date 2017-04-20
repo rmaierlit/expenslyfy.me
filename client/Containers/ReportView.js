@@ -35,6 +35,10 @@ class ReportView extends Component {
       this.setState(update);
   }
 
+  componentWillReceiveProps() { 
+      this.discardReport(); //clears the report when the user logs out
+  }
+
   render() {
     if(this.props.name === null) {
         return null;
@@ -44,15 +48,22 @@ class ReportView extends Component {
       return (
           <div>
             <button onClick={this.createReport.bind(this)}>Create Report</button>
-            <Datetime value={this.state.minDate} onChange={this.handleUpdate.bind(this, "minDate")}/>minimum date/time
-            <Datetime value={this.state.maxDate} onChange={this.handleUpdate.bind(this, "maxDate")}/>maximum date/time
+            <div style={{display: "flex", alignItems: "center"}}>
+                <h5>minimum date/time</h5>
+                <Datetime value={this.state.minDate} onChange={this.handleUpdate.bind(this, "minDate")}/>
+            </div>
+
+            <div style={{display: "flex", alignItems: "center"}}>
+                <h5>maximum date/time</h5>
+                <Datetime value={this.state.maxDate} onChange={this.handleUpdate.bind(this, "maxDate")}/>
+            </div>
           </div>
       );
     }
 
     return (
         <div>
-            <h3>Report</h3>
+            <h3>{'Report for ' + this.props.name}</h3>
 
             <Report reportArray={this.state.weeks}/>
 
