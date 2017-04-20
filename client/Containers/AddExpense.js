@@ -32,7 +32,7 @@ class AddExpense extends Component {
   render() {
     return (
         <div>
-            <h3>Add Expense</h3>
+            <h4>Add Expense</h4>
             <div onChange={this.handleChange.bind(this)}>
               amount<input type="text" data-name="amount" value={this.state.amount}/>
               description<input type="text" data-name="description" value={this.state.description}/>
