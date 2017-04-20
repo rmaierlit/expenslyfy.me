@@ -15,7 +15,8 @@ class ExpenseView extends Component {
         <div>
             <h3>Expenses</h3>
             <Expenses expenseArray={this.props.expenseArray}/>
-            <AddExpense name={this.props.name} userId={this.props.userId} token={this.props.token}/>
+            <AddExpense name={this.props.name} userId={this.props.userId} token={this.props.token} 
+              updateExpenses={this.props.updateExpenses}/>
         </div>
     );
   }

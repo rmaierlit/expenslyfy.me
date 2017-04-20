@@ -15,12 +15,16 @@ class Main extends Component {
 
   componentDidUpdate(prevProps, prevState){
     if (this.state.userId !== null && this.state.userId !== prevState.userId){
-      axios.get(`/users/${this.state.name}/Expenses`, {headers: {auth: this.state.token}})
+      this.getExpenses(this.state.name);
+    }
+  }
+
+  getExpenses(userName){
+    axios.get(`/users/${userName}/Expenses`, {headers: {auth: this.state.token}})
         .then(res => {
           console.log(res.data);
           this.setState({expenses: res.data});
         });
-    }
   }
 
   render() {
@@ -28,7 +32,8 @@ class Main extends Component {
         <div>
             <h1>Expenslyfy.me</h1>
             <Login setCredentials={this.setCredentials.bind(this)} name={this.state.name}/>
-            <ExpenseView expenseArray={this.state.expenses} token={this.state.token} userId={this.state.userId} name={this.state.name}/>
+            <ExpenseView expenseArray={this.state.expenses} token={this.state.token} 
+              userId={this.state.userId} name={this.state.name} updateExpenses={this.getExpenses.bind(this)}/>
         </div>
     );
   }

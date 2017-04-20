@@ -17,17 +17,22 @@ class AddExpense extends Component {
 
   postExpense() {
     let {amount, description} = this.state;
+    if (isNaN(parseFloat(amount))) {
+        alert('amount must be a number');
+        return;
+    }
     let expense = {amount, description, ownerId: this.props.userId};
     axios.post(`/users/${this.props.name}/expenses`, {expense}, {headers: {auth: this.props.token}})
       .then( (res) => {
         console.log(res);
+        this.props.updateExpenses(this.props.name);
       });
   }
 
   render() {
     return (
         <div>
-            <h2>Login:</h2>
+            <h3>Add Expense</h3>
             <div onChange={this.handleChange.bind(this)}>
               amount<input type="text" data-name="amount" value={this.state.amount}/>
               description<input type="text" data-name="description" value={this.state.description}/>
