@@ -34,10 +34,12 @@
     "jsonwebtoken": "^7.3.0",
     "knex": "^0.12.9",
     "mariasql": "^0.2.6",
+    "moment": "^2.18.1",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-jwt": "^2.2.1",
     "react": "^15.5.4",
+    "react-datetime": "^2.8.9",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1"
