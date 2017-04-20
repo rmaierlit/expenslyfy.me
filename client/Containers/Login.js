@@ -36,7 +36,7 @@ class Login extends Component {
         <div style={{display: 'flex'}}>
           <h2>{"Logged In As " + this.props.name}</h2>
           <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-            <button onClick={this.props.clearCredentials}>logout</button>
+            <button onClick={this.props.clearCredentials}>Logout</button>
           </div>
         </div>
       )
@@ -45,7 +45,7 @@ class Login extends Component {
         <div>
             <h2>Login:</h2>
             <div onChange={this.handleChange.bind(this)}>
-              user name<input type="text" data-name="user" value={this.state.user}/>
+              username<input type="text" data-name="user" value={this.state.user}/>
               password<input type="text" data-name="password" value={this.state.password}/>
             </div>
             <button onClick={this.submitLogin.bind(this)}>Sign In</button>
