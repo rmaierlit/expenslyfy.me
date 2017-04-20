@@ -11,13 +11,15 @@ module.exports = function (server) {
     server.get('/users/:user/expenses', helpers.isAuthenticated, helpers.adminOrUser, helpers.getExpenses);
     //GET for single expense (requires admin or that user)
     server.get('/users/:user/expenses/:expenseId', helpers.isAuthenticated, helpers.adminOrUser, helpers.getAnExpense);
+    //GET for expense report (requires that user)
+    server.get('/users/:user/report', helpers.isAuthenticated, helpers.userOnly, helpers.getReport);
 
     //*Mutators*
 
     //POST for user's expense (requires that user)
     server.post('/users/:user/expenses', jsonParser, helpers.isAuthenticated, helpers.userOnly, helpers.createExpense);
     //PUT for user's expense (requires that user)
-    server.put('/users/:user/expenses/:expenseId', jsonParser, helpers.isAuthenticated, helpers.userOnly, helpers.updateExpense);
+    server.put('/users/:user/expenses/:expenseId', jsonParser, helpers.isAuthenticated, helpers.userOnly, helpers.validateMutation, helpers.updateExpense);
     //DELETE for user's expense (requires that user)
-    server.delete('/users/:user/expenses/:expenseId', helpers.isAuthenticated, helpers.userOnly, helpers.deleteExpense);
+    server.delete('/users/:user/expenses/:expenseId', helpers.isAuthenticated, helpers.userOnly, helpers.validateMutation, helpers.deleteExpense);
 };
