@@ -23,6 +23,7 @@ class Login extends Component {
         if (cred.token) {
           console.log('token recieved: ', cred.token);
           this.props.setCredentials(cred);
+          this.setState({user: '', password: ''});
         } else {
           alert('Login information incorrect!');
         }
@@ -32,7 +33,12 @@ class Login extends Component {
   render() {
     if (this.props.name !== null){
       return (
-        <h2>{"Logged In As " + this.props.name}</h2>
+        <div style={{display: 'flex'}}>
+          <h2>{"Logged In As " + this.props.name}</h2>
+          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+            <button onClick={this.props.clearCredentials}>logout</button>
+          </div>
+        </div>
       )
     }
     return (
