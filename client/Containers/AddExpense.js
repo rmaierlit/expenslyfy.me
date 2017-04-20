@@ -21,10 +21,10 @@ class AddExpense extends Component {
         alert('amount must be a number');
         return;
     }
-    let expense = {amount, description, ownerId: this.props.userId};
+    let expense = {amount, description};
     axios.post(`/users/${this.props.name}/expenses`, {expense}, {headers: {auth: this.props.token}})
       .then( (res) => {
-        console.log(res);
+        console.log('add:', res);
         this.props.updateExpenses(this.props.name);
       });
   }
