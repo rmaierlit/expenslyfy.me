@@ -113,8 +113,19 @@ helpers.getAnExpense = function(req, res) {
 
 helpers.getReport = function(req, res) {
     let name = req.params.user;
+    let minDate = req.query.minDate; //default should be 'none'
+    let maxDate = req.query.maxDate; //default should be 'none'
+    console.log(req.query);
     //this query groups the expenses that match the provided user ID by what week they belong to (starting from Monday) and provides the sum of the amounts from those groups
-    m.query("SELECT DATE_FORMAT(date_time, '%x %v') AS week, sum(expenses.amount) AS total_amount_spent FROM expenses WHERE owner_id IN (select user_id from users where name=:name) GROUP BY week", {name}, function(err, rows){
+    //the dates queried can also be limited by a min and max date provided in the request
+    m.query(`SELECT DATE_FORMAT(date_time, '%x %v') AS week,
+             DATE(DATE_ADD(date_time, INTERVAL(-WEEKDAY(date_time)) DAY)) as week_start,
+             DATE(DATE_ADD(date_time, INTERVAL(-WEEKDAY(date_time) + 6) DAY)) as week_end,
+             SUM(expenses.amount) AS total_amount_spent FROM expenses
+             WHERE owner_id IN (select user_id from users where name=:name)
+             AND (:minDate='none' OR TIMEDIFF(date_time, :minDate) >= 0)
+             AND (:maxDate='none' OR TIMEDIFF(date_time, :maxDate) <= 0)
+             GROUP BY week`, {name, minDate, maxDate}, function(err, rows){
         if (err){
             res.send(err.message);
         }

@@ -7,6 +7,8 @@ module.exports = function (server) {
 
     //*Accessors*
 
+    //GET for a list of users (requires admin)
+    //server.get('/users', helpers.AdminOnly, helpers.getUsers);
     //GET for user expenses (requires admin or that user)
     server.get('/users/:user/expenses', helpers.isAuthenticated, helpers.adminOrUser, helpers.getExpenses);
     //GET for single expense (requires admin or that user)
