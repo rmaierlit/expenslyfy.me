@@ -11,7 +11,7 @@ function ExpenseView(props) {
       <div>
           <h3>Expenses</h3>
           <LookupUser userList={props.userList} getExpenses={props.getExpenses}/>
-          <Expenses expenseArray={props.expenseArray}/>
+          <Expenses expenseArray={props.expenseArray} deleteExpense={props.deleteExpense} isOwn={props.name === props.lookingAt}/>
           <AddExpense name={props.name} token={props.token} updateExpenses={props.getExpenses} lookingAt={props.lookingAt}/>
       </div>
   );

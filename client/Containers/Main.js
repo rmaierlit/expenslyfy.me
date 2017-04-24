@@ -44,6 +44,14 @@ class Main extends Component {
         });
   }
 
+  deleteExpense(expenseId) {
+    axios.delete(`/users/${this.state.name}/expenses/${expenseId}`, {headers: {auth: this.state.token}})
+      .then(res => {
+        console.log('deleted: ', res.data);
+        this.getExpenses(this.state.name);
+      });
+  }
+
   render() {
     return (
         <div>
@@ -56,7 +64,7 @@ class Main extends Component {
 
             <ExpenseView expenseArray={this.state.expenses} token={this.state.token} userList={this.state.userList}
               name={this.state.name} isAdmin={this.state.isAdmin} lookingAt={this.state.lookingAt}
-              getExpenses={this.getExpenses.bind(this)}/>
+              getExpenses={this.getExpenses.bind(this)} deleteExpense={this.deleteExpense.bind(this)}/>
         </div>
     );
   }
