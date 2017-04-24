@@ -16,7 +16,6 @@ function Expenses(props) {
             let expenseId = event.target.getAttribute("data-expenseId");
             props.deleteExpense(expenseId);
         };
-        console.log(event.target);
     };
 
     return (
