@@ -9,6 +9,7 @@ var driver = new selenium.Builder()
 
 before(function() {
     this.timeout(10000)
+    //return statements are used so that mocha will wait for promises to resolve
     return driver.getWindowHandle()
 });
 
@@ -33,7 +34,7 @@ describe('Integration Tests', function() {
             .then(_ => driver.findElement(By.css('[data-name="password"]')).sendKeys('@dril'))
             .then(_ => driver.findElement(By.css('#login button')).click())
             .then(_ => driver.findElement(By.css('#login h2')).getText())
-            .then(text => expect(text).to.equal("Logged In As Wint"))
+            .then(text => expect(text).to.equal("Logged In As Wint"));
     });
     it('should allow the user to log out', function() {
         return driver.findElement(By.css('[data-name="user"]')).sendKeys('Wint')
