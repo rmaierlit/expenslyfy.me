@@ -4,10 +4,10 @@ An expense tracking application
 ## How to get started:
 * Run npm install.
 * Run webpack.
-* Run mysql -u root < server/db/schema.sql to initialize the database.
-* Run npm test for mocha tests.
+* Run mysql -u root < server/db/schema.sql to initialize the database (mysqld must be running).
 * Run npm start to launch the server.
-* Navigate to localhost:6565 to view the app.
+* Run npm test for mocha tests.
+* Navigate to localhost:6565 in a browser to view the app.
 
 ## Using the App:
 Username and password are required to log in.
@@ -15,6 +15,7 @@ Try using these three:
 * Wint (password: ‘@dril’)
 * Ulysses (password: ‘metis’)
 * Juno (password: ‘gr8h8r’)
+
 Only Juno has admin permissions.
 
 #### Login
@@ -50,3 +51,6 @@ Click the “Logout” button near the top of the screen to discard your web tok
 Password hashing is not implemented at this point.
 
 Since username and password are sent in an http body, requests should be encrypted with https for production use.
+
+### Updating expenses
+This is possible on the back-end (through a PUT request on /users/[user]/expenses[expenseId]), but the interface for updating these expenses is not currently impemented on the front-end.
