@@ -120,7 +120,7 @@ Helpers.prototype.getReport = function(req, res) {
 Helpers.prototype.createExpense = function(req, res) {
     let {amount, description} = req.body.expense;
     let name = req.params.user;
-    // INSERT with SELECT here will specify the first three properties directly and query the users table for the third
+    // INSERT with SELECT here will specify the first three properties directly and query the users table for the fourth
     this.m.query('INSERT INTO expenses (date_time, amount, description, owner_id) (SELECT now(), :amount, :description, user_id from users where name=:name)', {amount, description, name}, function(err, info){
         if (err){
             res.send(err.message);

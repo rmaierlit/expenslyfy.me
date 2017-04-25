@@ -7,18 +7,6 @@ var Helpers = require('../server/helpers.js');
 var t = {} //fake mariasql dependency
 var helpers = new Helpers(t);
 
-// describe ('Content delivery', function() {
-//     var server = require('../server/server.js');
-//     var request = require('supertest');
-//     describe ('GET /', function() {
-//         it('should respond with 200 OK status code', function(done){
-//             request(server)
-//                 .get('/')
-//                 .expect(200, done);
-//         });
-//     });
-// });
-
 describe ('Authorization', function() {
     describe('helpers.login', function() {
             var req;

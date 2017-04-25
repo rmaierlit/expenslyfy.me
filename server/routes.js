@@ -35,7 +35,6 @@ module.exports = function (server) {
     server.post('/login', jsonParser, helpers.login.bind(helpers));
 
     //*Accessors*
-
     //GET for a list of users (requires admin)
     server.get('/users', helpers.isAuthenticated, helpers.adminOnly, helpers.getUsers.bind(helpers));
     //GET for user expenses (requires admin or that user)
@@ -46,7 +45,6 @@ module.exports = function (server) {
     server.get('/users/:user/report', helpers.isAuthenticated, helpers.userOnly, helpers.getReport.bind(helpers));
 
     //*Mutators*
-
     //POST for user's expense (requires that user)
     server.post('/users/:user/expenses', jsonParser, helpers.isAuthenticated, helpers.userOnly, helpers.createExpense.bind(helpers));
     //PUT for user's expense (requires that user)
