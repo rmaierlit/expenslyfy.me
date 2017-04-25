@@ -21,29 +21,33 @@ describe('Integration Tests', function() {
     beforeEach(function(){
         return driver.get('localhost:6565');
     });
-    it('should dislpay the title', function() {
-        return driver.findElement(By.css('h1')).getText()
-            .then(text => expect(text).to.equal("Expenslyfy.me"));
-    });
-    it('should begin at the login screen', function() {
-        return driver.findElement(By.css('#login h2')).getText()
-            .then(text => expect(text).to.equal("Login:"));
-    });
-    it('should allow the user to sign in with their username and password', function(){
-        return driver.findElement(By.css('[data-name="user"]')).sendKeys('Wint')
-            .then(_ => driver.findElement(By.css('[data-name="password"]')).sendKeys('@dril'))
-            .then(_ => driver.findElement(By.css('#login button')).click())
-            .then(_ => driver.findElement(By.css('#login h2')).getText())
-            .then(text => expect(text).to.equal("Logged In As Wint"));
-    });
-    it('should allow the user to log out', function() {
-        return driver.findElement(By.css('[data-name="user"]')).sendKeys('Wint')
-            .then(_ => driver.findElement(By.css('[data-name="password"]')).sendKeys('@dril'))
-            .then(_ => driver.findElement(By.css('#login button')).click()) //logging in
-            .then(_ => driver.findElement(By.css('#login h2')).getText())
-            .then(text => expect(text).to.equal("Logged In As Wint"))
-            .then(_ => driver.findElement(By.css('#login button')).click()) //logging out
-            .then(_ => driver.findElement(By.css('#login h2')).getText())
-            .then(text => expect(text).to.equal("Login:"));
-    });
+    describe('title', function(){
+        it('should dislpay the title', function() {
+            return driver.findElement(By.css('h1')).getText()
+                .then(text => expect(text).to.equal("Expenslyfy.me"));
+        });
+    })
+    describe('login', function(){
+        it('should begin at the login screen', function() {
+            return driver.findElement(By.css('#login h2')).getText()
+                .then(text => expect(text).to.equal("Login:"));
+        });
+        it('should allow the user to sign in with their username and password', function(){
+            return driver.findElement(By.css('[data-name="user"]')).sendKeys('Wint')
+                .then(_ => driver.findElement(By.css('[data-name="password"]')).sendKeys('@dril'))
+                .then(_ => driver.findElement(By.css('#login button')).click())
+                .then(_ => driver.findElement(By.css('#login h2')).getText())
+                .then(text => expect(text).to.equal("Logged In As Wint"));
+        });
+        it('should allow the user to log out', function() {
+            return driver.findElement(By.css('[data-name="user"]')).sendKeys('Wint')
+                .then(_ => driver.findElement(By.css('[data-name="password"]')).sendKeys('@dril'))
+                .then(_ => driver.findElement(By.css('#login button')).click()) //logging in
+                .then(_ => driver.findElement(By.css('#login h2')).getText())
+                .then(text => expect(text).to.equal("Logged In As Wint"))
+                .then(_ => driver.findElement(By.css('#login button')).click()) //logging out
+                .then(_ => driver.findElement(By.css('#login h2')).getText())
+                .then(text => expect(text).to.equal("Login:"));
+        });
+    })
 });
