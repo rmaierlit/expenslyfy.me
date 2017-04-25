@@ -32,7 +32,7 @@ class Login extends Component {
   render() {
     if (this.props.name !== null){
       return (
-        <div style={{display: 'flex'}}>
+        <div id='login' style={{display: 'flex'}}>
           <h2>{"Logged In As " + this.props.name}</h2>
           <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
             <button onClick={this.props.clearCredentials}>Logout</button>
@@ -41,7 +41,7 @@ class Login extends Component {
       )
     }
     return (
-        <div>
+        <div id='login'>
             <h2>Login:</h2>
             <div onChange={this.handleChange.bind(this)}>
               username<input type="text" data-name="user" value={this.state.user}/>
